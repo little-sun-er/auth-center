@@ -1,0 +1,18 @@
+server:
+  port: 8080
+  name: auth-center-dev
+
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/demo?allowMultiQueries=true
+        username: root
+        password: root
+info:
+  service-info: auth-center-dev
+  api-doc: /swagger-ui.html
+swagger:
+  basePath: com.ligw
+  title: AuthCenter-API
+  description: API信息有疑问请联系相关开发人员
+  contact: ligw
+  version: @project.version@
