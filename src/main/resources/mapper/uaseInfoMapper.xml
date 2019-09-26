@@ -3,7 +3,7 @@
 <mapper namespace="com.rainsunset.auth.dal.mapper.UaseInfoMapper">
 
     <select id="selectUaseInfoList" resultType="com.rainsunset.auth.dal.model.UaseInfo">
-        select `uid` `uid`, 
+        select `uid` `uid`,
         `pwd` `pwd`, `security_gestures` `securityGestures`, `expiry_time` `expiryTime`, `area_code` `areaCode`, 
         `phone` `phone`, `email` `email`, `card_id` `cardId`, `wchat_id` `wchatId`, 
         `weibo_id` `weiboId`, `qq_id` `qqId`, `github_id` `githubId`, `google_id` `googleId`, 
@@ -244,7 +244,7 @@
     </update>
 
     <update id="deleteUaseInfos">
-        update  t_uase_info
+        update t_uase_info
         set `status` = 'UNVALID', updated_by = #{updatedBy}
         where uid IN
         <foreach collection="uids" item="uid" open="(" close=")" separator=",">

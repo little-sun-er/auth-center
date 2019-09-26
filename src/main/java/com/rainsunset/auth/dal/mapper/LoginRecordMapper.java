@@ -11,7 +11,7 @@ import java.util.List;
  * @Description: 登录记录表 Mapper
  * @Author: ligangwei
  * @Company rainsunset
- * @CreateDate: 2019-09-26 10:31:51
+ * @CreateDate: 2019-09-26 11:16:58
  * @Version : 1.0-SNAPSHOT
  */
 @Repository
@@ -19,6 +19,7 @@ public interface LoginRecordMapper {
 
     /**
      * 依据条件查找 登录记录表 列表
+     *
      * @param loginName
      * @param loginKey
      * @param loginType
@@ -52,34 +53,32 @@ public interface LoginRecordMapper {
 
     /**
      * 依据Id查找 登录记录表 详情
+     *
      * @param id
      * @return
      */
     public LoginRecord getLoginRecordDetail(@Param("id") Integer id);
 
     /**
-     * 添加 登录记录表
-     * @param loginRecord
-     */
-    public Integer  addLoginRecord(LoginRecord loginRecord);
-
-    /**
      * 全量插入 登录记录表
+     *
      * @param loginRecord
      */
-    public Integer  fullInsertLoginRecord(LoginRecord loginRecord);
+    public Integer fullInsertLoginRecord(LoginRecord loginRecord);
 
     /**
      * 依据主键更新 登录记录表
+     *
      * @param loginRecord
      */
-    public Integer  updateLoginRecord(LoginRecord loginRecord);
+    public Integer updateLoginRecord(LoginRecord loginRecord);
 
     /**
      * 依据主键删除 登录记录表 记录
+     *
      * @param ids
      * @param updatedBy
      */
-    public Integer  deleteLoginRecords(@Param("ids") Integer[] ids,
-                                       @Param("updatedBy") String updatedBy);
+    public Integer deleteLoginRecords(@Param("ids") Integer[] ids,
+                                      @Param("updatedBy") String updatedBy);
 }

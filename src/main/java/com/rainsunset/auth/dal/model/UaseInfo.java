@@ -6,19 +6,19 @@ import lombok.Data;
 
 import java.util.Date;
 
- /**
-  * @Description: 用户信息表(登录信息基础信息) Model
-  * @Author: ligangwei
-  * @Company rainsunset
-  * @CreateDate: 2019-09-26 10:06:20
-  * @Version : 1.0-SNAPSHOT
-  */
+/**
+ * @Description: 用户信息表(登录信息基础信息) Model
+ * @Author: ligangwei
+ * @Company rainsunset
+ * @CreateDate: 2019-09-26 11:16:59
+ * @Version : 1.0-SNAPSHOT
+ */
 @Data
 @ApiModel(description = "用户信息表(登录信息基础信息)")
 public class UaseInfo {
 
     @ApiModelProperty(value = "用户id")
-    private String  uid;
+    private String uid;
 
     @ApiModelProperty(value = "密码")
     private String pwd;

@@ -36,7 +36,7 @@ public class WebAppConfig {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(this.apiInfo())
-				.securitySchemes(newArrayList(new ApiKey[] { this.apiKey() }))
+				.securitySchemes(newArrayList(new ApiKey[]{this.apiKey()}))
 				.select()
 				.apis(RequestHandlerSelectors.basePackage(this.swaggerBastPath))
 				.build()

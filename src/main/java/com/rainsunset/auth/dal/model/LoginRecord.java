@@ -6,19 +6,19 @@ import lombok.Data;
 
 import java.util.Date;
 
- /**
-  * @Description: 登录记录表 Model
-  * @Author: ligangwei
-  * @Company rainsunset
-  * @CreateDate: 2019-09-26 10:06:19
-  * @Version : 1.0-SNAPSHOT
-  */
+/**
+ * @Description: 登录记录表 Model
+ * @Author: ligangwei
+ * @Company rainsunset
+ * @CreateDate: 2019-09-26 11:16:58
+ * @Version : 1.0-SNAPSHOT
+ */
 @Data
 @ApiModel(description = "登录记录表")
 public class LoginRecord {
 
     @ApiModelProperty(value = "登录记录表主键")
-    private Integer  id;
+    private Integer id;
 
     @ApiModelProperty(value = "登录名")
     private String loginName;

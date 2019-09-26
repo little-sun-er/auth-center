@@ -25,8 +25,8 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
-        removeAbandoned : false
-        maxPoolPreparedStatementPerConnectionSize : 50
+        removeAbandoned: false
+        maxPoolPreparedStatementPerConnectionSize: 50
         dialect: MYSQL
 mybatis:
-  mapper-locations: classpath*:mapper/*Mapper.xml
+    mapper-locations: classpath*:mapper/*Mapper.xml

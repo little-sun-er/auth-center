@@ -3,7 +3,7 @@
 <mapper namespace="com.rainsunset.auth.dal.mapper.LoginRecordMapper">
 
     <select id="selectLoginRecordList" resultType="com.rainsunset.auth.dal.model.LoginRecord">
-        select `id` `id`, 
+        select `id` `id`,
         `login_name` `loginName`, `login_key` `loginKey`, `login_type` `loginType`, `system_type` `systemType`, 
         `system_version` `systemVersion`, `account_status` `accountStatus`, `safe_status` `safeStatus`, `ip` `ip`, 
         `imsi` `imsi`, `imei` `imei`, `loc_info` `locInfo`, `device_id` `deviceId`, 
@@ -154,7 +154,7 @@
     </update>
 
     <update id="deleteLoginRecords">
-        update  t_login_record
+        update t_login_record
         set `status` = 'UNVALID', updated_by = #{updatedBy}
         where id IN
         <foreach collection="ids" item="id" open="(" close=")" separator=",">

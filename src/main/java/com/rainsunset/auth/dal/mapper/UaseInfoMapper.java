@@ -11,7 +11,7 @@ import java.util.List;
  * @Description: 用户信息表(登录信息基础信息) Mapper
  * @Author: ligangwei
  * @Company rainsunset
- * @CreateDate: 2019-09-26 10:31:52
+ * @CreateDate: 2019-09-26 11:16:59
  * @Version : 1.0-SNAPSHOT
  */
 @Repository
@@ -19,6 +19,7 @@ public interface UaseInfoMapper {
 
     /**
      * 依据条件查找 用户信息表(登录信息基础信息) 列表
+     *
      * @param pwd
      * @param securityGestures
      * @param expiryTime
@@ -71,34 +72,32 @@ public interface UaseInfoMapper {
 
     /**
      * 依据Id查找 用户信息表(登录信息基础信息) 详情
+     *
      * @param uid
      * @return
      */
     public UaseInfo getUaseInfoDetail(@Param("uid") String uid);
 
     /**
-     * 添加 用户信息表(登录信息基础信息)
-     * @param uaseInfo
-     */
-    public Integer  addUaseInfo(UaseInfo uaseInfo);
-
-    /**
      * 全量插入 用户信息表(登录信息基础信息)
+     *
      * @param uaseInfo
      */
-    public Integer  fullInsertUaseInfo(UaseInfo uaseInfo);
+    public Integer fullInsertUaseInfo(UaseInfo uaseInfo);
 
     /**
      * 依据主键更新 用户信息表(登录信息基础信息)
+     *
      * @param uaseInfo
      */
-    public Integer  updateUaseInfo(UaseInfo uaseInfo);
+    public Integer updateUaseInfo(UaseInfo uaseInfo);
 
     /**
      * 依据主键删除 用户信息表(登录信息基础信息) 记录
+     *
      * @param uids
      * @param updatedBy
      */
-    public Integer  deleteUaseInfos(@Param("uids") String[] uids,
-                                    @Param("updatedBy") String updatedBy);
+    public Integer deleteUaseInfos(@Param("uids") String[] uids,
+                                   @Param("updatedBy") String updatedBy);
 }
