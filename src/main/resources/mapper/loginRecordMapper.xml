@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rainsunset.auth.dal.mapper.LoginRecordMapper">
+
+    <select id="selectLoginRecordList" resultType="com.rainsunset.auth.dal.model.LoginRecord">
+        select `id` `id`, 
+        `login_name` `loginName`, `login_key` `loginKey`, `login_type` `loginType`, `system_type` `systemType`, 
+        `system_version` `systemVersion`, `account_status` `accountStatus`, `safe_status` `safeStatus`, `ip` `ip`, 
+        `imsi` `imsi`, `imei` `imei`, `loc_info` `locInfo`, `device_id` `deviceId`, 
+        `created_at` `createdAt`, `created_by` `createdBy`, `updated_at` `updatedAt`, `updated_by` `updatedBy`, 
+        `valid_status` `validStatus`
+        from t_login_record
+        WHERE `status` = 'VALID'
+        <if test="loginName != null and loginName != ''">
+            and `login_name` = #{loginName}
+        </if>
+        <if test="loginKey != null and loginKey != ''">
+            and `login_key` = #{loginKey}
+        </if>
+        <if test="loginType != null and loginType != ''">
+            and `login_type` = #{loginType}
+        </if>
+        <if test="systemType != null and systemType != ''">
+            and `system_type` = #{systemType}
+        </if>
+        <if test="systemVersion != null and systemVersion != ''">
+            and `system_version` = #{systemVersion}
+        </if>
+        <if test="accountStatus != null and accountStatus != ''">
+            and `account_status` = #{accountStatus}
+        </if>
+        <if test="safeStatus != null and safeStatus != ''">
+            and `safe_status` = #{safeStatus}
+        </if>
+        <if test="ip != null and ip != ''">
+            and `ip` = #{ip}
+        </if>
+        <if test="imsi != null and imsi != ''">
+            and `imsi` = #{imsi}
+        </if>
+        <if test="imei != null and imei != ''">
+            and `imei` = #{imei}
+        </if>
+        <if test="locInfo != null and locInfo != ''">
+            and `loc_info` = #{locInfo}
+        </if>
+        <if test="deviceId != null and deviceId != ''">
+            and `device_id` = #{deviceId}
+        </if>
+        <if test="createdAt != null">
+            and `created_at` = #{createdAt}
+        </if>
+        <if test="createdBy != null and createdBy != ''">
+            and `created_by` = #{createdBy}
+        </if>
+        <if test="updatedAt != null">
+            and `updated_at` = #{updatedAt}
+        </if>
+        <if test="updatedBy != null and updatedBy != ''">
+            and `updated_by` = #{updatedBy}
+        </if>
+        <if test="validStatus != null and validStatus != ''">
+            and `valid_status` = #{validStatus}
+        </if>
+        ORDER BY id ASC
+    </select>
+
+    <select id="getLoginRecordDetail" parameterType="java.lang.Integer"
+            resultType="com.rainsunset.auth.dal.model.LoginRecord">
+        select
+        `id` `id`,
+        `login_name` `loginName`, `login_key` `loginKey`, `login_type` `loginType`, `system_type` `systemType`, 
+        `system_version` `systemVersion`, `account_status` `accountStatus`, `safe_status` `safeStatus`, `ip` `ip`, 
+        `imsi` `imsi`, `imei` `imei`, `loc_info` `locInfo`, `device_id` `deviceId`, 
+        `created_at` `createdAt`, `created_by` `createdBy`, `updated_at` `updatedAt`, `updated_by` `updatedBy`, 
+        `valid_status` `validStatus`
+        from t_login_record
+        WHERE id = #{id}
+    </select>
+
+    <insert id="fullInsertLoginRecord" parameterType="com.rainsunset.auth.dal.model.LoginRecord"
+        useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_login_record ( 
+            `login_name`, `login_key`, `login_type`, `system_type`, 
+            `system_version`, `account_status`, `safe_status`, `ip`, 
+            `imsi`, `imei`, `loc_info`, `device_id`, 
+            `created_at`, `created_by`, `updated_at`, `updated_by`, 
+            `valid_status`
+        ) VALUES ( 
+            #{loginName}, #{loginKey}, #{loginType}, #{systemType}, 
+            #{systemVersion}, #{accountStatus}, #{safeStatus}, #{ip}, 
+            #{imsi}, #{imei}, #{locInfo}, #{deviceId}, 
+            #{createdAt}, #{createdBy}, #{updatedAt}, #{updatedBy}, 
+            #{validStatus}
+        )
+    </insert>
+
+    <update id="updateLoginRecord" parameterType="com.rainsunset.auth.dal.model.LoginRecord">
+        update t_login_record
+        <trim prefix="set" suffixOverrides=",">
+                <if test="loginName != null">
+                    `login_name` =#{loginName},
+                </if>
+                <if test="loginKey != null">
+                    `login_key` =#{loginKey},
+                </if>
+                <if test="loginType != null">
+                    `login_type` =#{loginType},
+                </if>
+                <if test="systemType != null">
+                    `system_type` =#{systemType},
+                </if>
+                <if test="systemVersion != null">
+                    `system_version` =#{systemVersion},
+                </if>
+                <if test="accountStatus != null">
+                    `account_status` =#{accountStatus},
+                </if>
+                <if test="safeStatus != null">
+                    `safe_status` =#{safeStatus},
+                </if>
+                <if test="ip != null">
+                    `ip` =#{ip},
+                </if>
+                <if test="imsi != null">
+                    `imsi` =#{imsi},
+                </if>
+                <if test="imei != null">
+                    `imei` =#{imei},
+                </if>
+                <if test="locInfo != null">
+                    `loc_info` =#{locInfo},
+                </if>
+                <if test="deviceId != null">
+                    `device_id` =#{deviceId},
+                </if>
+                <if test="createdAt != null">
+                    `created_at` =#{createdAt},
+                </if>
+                <if test="createdBy != null">
+                    `created_by` =#{createdBy},
+                </if>
+                <if test="updatedAt != null">
+                    `updated_at` =#{updatedAt},
+                </if>
+                <if test="updatedBy != null">
+                    `updated_by` =#{updatedBy},
+                </if>
+                <if test="validStatus != null">
+                    `valid_status` =#{validStatus},
+                </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="deleteLoginRecords">
+        update  t_login_record
+        set `status` = 'UNVALID', updated_by = #{updatedBy}
+        where id IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+</mapper>
