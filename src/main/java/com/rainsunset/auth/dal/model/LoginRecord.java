@@ -26,7 +26,7 @@ public class LoginRecord {
     @ApiModelProperty(value = "登录口令")
     private String loginKey;
 
-    @ApiModelProperty(value = "登录类型(PHONE:手机号登录;EMAIL:邮箱;CARD:身份证号;WCHAT:微信;WEIBO:微博;QQ:QQ;GITHUB:Github;GOOGLE:Google;FACEBOOK:Facebook;TWITTER:Twitter;FINGERPRINT:指纹;FACE:面部认证;TRUSTED_DEVICE:信任设备;)")
+    @ApiModelProperty(value = "登录类型")
     private String loginType;
 
     @ApiModelProperty(value = "系统类型")
@@ -35,10 +35,10 @@ public class LoginRecord {
     @ApiModelProperty(value = "系统版本")
     private String systemVersion;
 
-    @ApiModelProperty(value = "验证结果(LOGIN_FAIL:登陆失败;PWD_INIT:密码初始化;UAUAL:正常;PART_LOCK:暂时锁定;LOCK_OUT锁死;OVER_TIME:过期失效;WIRTE_OFF:注销;)")
+    @ApiModelProperty(value = "验证结果")
     private String accountStatus;
 
-    @ApiModelProperty(value = "账户安全状态(NORMAL:正常;LOW_RISK:低风险;HIGH_RISK:高风险;DANGER:危险;)")
+    @ApiModelProperty(value = "账户安全状态")
     private String safeStatus;
 
     @ApiModelProperty(value = "请求IP")

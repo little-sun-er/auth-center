@@ -71,13 +71,13 @@ public class UaseInfo {
     @ApiModelProperty(value = "信任设备id")
     private String trustedDeviceId;
 
-    @ApiModelProperty(value = "账户状态(PWD_INIT:密码初始化;UAUAL:正常;PART_LOCK:暂时锁定;LOCK_OUT锁死;OVER_TIME:过期失效;WIRTE_OFF:注销;)")
+    @ApiModelProperty(value = "账户状态")
     private String accountStatus;
 
     @ApiModelProperty(value = "账户解锁时间")
     private Date unlockTime;
 
-    @ApiModelProperty(value = "账户安全状态(NORMAL:正常;LOW_RISK:低风险;HIGH_RISK:高风险;DANGER:危险;)")
+    @ApiModelProperty(value = "账户安全状态")
     private String safeStatus;
 
     @ApiModelProperty(value = "昵称")
@@ -89,7 +89,7 @@ public class UaseInfo {
     @ApiModelProperty(value = "真实姓名")
     private String realName;
 
-    @ApiModelProperty(value = "性别(0:女;1:男;)")
+    @ApiModelProperty(value = "性别")
     private Integer sex;
 
     @ApiModelProperty(value = "出生日期")
