@@ -16,8 +16,6 @@ public enum LoginTypeEnum {
     // 登录名密码登录: PHONE_PWD:手机号密码;EMAIL_PWD:邮箱密码;CARD_PWD:身份证号密码;
     // 验证登录(注册):PHONE_CODE:手机号验证码;EMAIL_CODE:邮箱验证码;
     // 第三方授权登录(注册): WCHAT:微信;WEIBO:微博;QQ:QQ;GITHUB:Github;GOOGLE:Google;FACEBOOK:Facebook;TWITTER:Twitter;
-    // 特征识别登录(注册): FINGERPRINT:指纹识别;FACE:面部识别;CARD:身份证识别;
-    // 设备授权登录: TRUSTED_DEVICE:信任设备;
     PHONE_PWD("PHONE_PWD","手机号密码"),
     EMAIL_PWD("EMAIL_PWD","邮箱密码"),
     CARD_PWD("CARD_PWD","身份证号密码"),
@@ -32,12 +30,6 @@ public enum LoginTypeEnum {
     GOOGLE("GOOGLE","Google"),
     FACEBOOK("FACEBOOK","Facebook"),
     TWITTER("TWITTER","Twitter"),
-
-    FINGERPRINT("FINGERPRINT","指纹识别"),
-    FACE("FACE","面部识别"),
-    CARD("CARD","身份证识别"),
-
-    TRUSTED_DEVICE("TRUSTED_DEVICE","信任设备"),
     ;
     private String code;
 

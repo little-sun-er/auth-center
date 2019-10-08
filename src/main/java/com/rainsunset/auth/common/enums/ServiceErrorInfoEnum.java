@@ -29,7 +29,6 @@ public enum ServiceErrorInfoEnum implements ErrorInfoInterface {
     // 参数异常
     AUTH_415000("AUTH_415000","请求参数非法"),
 
-
     // 500 内部错误
     AUTH_500001("AUTH_500001", "数据库异常"),
     AUTH_500002("AUTH_500002", "资源繁忙"),

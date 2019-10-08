@@ -17,12 +17,20 @@ public interface LoginService {
      * 登录名密码登录: PHONE_PWD:手机号密码;EMAIL_PWD:邮箱密码;CARD_PWD:身份证号密码;
      * 验证登录(注册):PHONE_CODE:手机号验证码;EMAIL_CODE:邮箱验证码;
      * 第三方授权登录(注册): WCHAT:微信;WEIBO:微博;QQ:QQ;GITHUB:Github;GOOGLE:Google;FACEBOOK:Facebook;TWITTER:Twitter;
-     * 特征识别登录(注册): FINGERPRINT:指纹识别;FACE:面部识别;CARD:身份证识别;
-     * 设备授权登录: TRUSTED_DEVICE:信任设备;
      * @param loginReqDTO
      * @return
      */
     public ResponseResult<LoginReqDTO> login(LoginReqDTO loginReqDTO);
+
+    /**
+     * 用户特征识别
+     *
+     * 特征识别登录(注册): FINGERPRINT:指纹识别;FACE:面部识别;CARD:身份证识别;
+     * 设备授权登录: TRUSTED_DEVICE:信任设备;
+     * @param veriFeatureReqDTO
+     * @return
+     */
+    public ResponseResult<Boolean> veriFeature(VeriFeatureReqDTO veriFeatureReqDTO);
 
     /**
      * 验证token
@@ -49,9 +57,9 @@ public interface LoginService {
     public ResponseResult<Boolean> sendEmailCode(SendEmailCodeReqDTO sendEmailCodeReqDTO);
 
     /**
-     * 初始化密码(随机生成并通知)
+     * 初始化密码
      *
-     * 手机号验证码验证重置/邮箱验证码验证重置
+     * 组管理员初始化成员密码并通知成员
      * @param initPwdReqDTO
      * @return
      */
