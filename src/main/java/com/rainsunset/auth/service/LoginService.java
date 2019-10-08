@@ -1,6 +1,7 @@
 package com.rainsunset.auth.service;
 
 import com.rainsunset.auth.service.request.*;
+import com.rainsunset.auth.service.response.LoginResDTO;
 import com.rainsunset.common.bean.ResponseResult;
 
 /**
@@ -20,7 +21,7 @@ public interface LoginService {
      * @param loginReqDTO
      * @return
      */
-    public ResponseResult<LoginResDTO> login(LoginResDTO loginReqDTO);
+    public ResponseResult<LoginResDTO> login(LoginReqDTO loginReqDTO);
 
     /**
      * 用户特征识别

@@ -1,6 +1,6 @@
 package com.rainsunset.auth.dal.mapper;
 
-import com.rainsunset.auth.dal.model.UaseInfo;
+import com.rainsunset.auth.dal.model.UserInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * @Version : 1.0-SNAPSHOT
  */
 @Repository
-public interface UaseInfoMapper {
+public interface UserInfoMapper {
 
     /**
      * 依据条件查找 用户信息表(登录信息基础信息) 列表
@@ -52,7 +52,7 @@ public interface UaseInfoMapper {
      * @param validStatus
      * @return
      */
-    public List<UaseInfo> selectUaseInfoList(
+    public List<UserInfo> selectUserInfoList(
 		    @Param("pwd") String pwd, @Param("securityGestures") String securityGestures,
 		    @Param("expiryTime") Date expiryTime, @Param("areaCode") String areaCode,
 		    @Param("phone") String phone, @Param("email") String email,
@@ -76,21 +76,21 @@ public interface UaseInfoMapper {
      * @param uid
      * @return
      */
-    public UaseInfo getUaseInfoDetail(@Param("uid") String uid);
+    public UserInfo getUserInfoDetail(@Param("uid") String uid);
 
     /**
      * 全量插入 用户信息表(登录信息基础信息)
      *
-     * @param uaseInfo
+     * @param userInfo
      */
-    public Integer fullInsertUaseInfo(UaseInfo uaseInfo);
+    public Integer fullInsertUserInfo(UserInfo userInfo);
 
     /**
      * 依据主键更新 用户信息表(登录信息基础信息)
      *
-     * @param uaseInfo
+     * @param userInfo
      */
-    public Integer updateUaseInfo(UaseInfo uaseInfo);
+    public Integer updateUserInfo(UserInfo userInfo);
 
     /**
      * 依据主键删除 用户信息表(登录信息基础信息) 记录
@@ -98,6 +98,6 @@ public interface UaseInfoMapper {
      * @param uids
      * @param updatedBy
      */
-    public Integer deleteUaseInfos(@Param("uids") String[] uids,
+    public Integer deleteUserInfos(@Param("uids") String[] uids,
                                    @Param("updatedBy") String updatedBy);
 }

@@ -2,6 +2,7 @@ package com.rainsunset.auth.controller;
 
 import com.rainsunset.auth.service.LoginService;
 import com.rainsunset.auth.service.request.*;
+import com.rainsunset.auth.service.response.LoginResDTO;
 import com.rainsunset.common.bean.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ public class LoginController {
      * @param loginReqDTO
      * @return
      */
-    public ResponseResult<LoginResDTO> login(@RequestBody LoginResDTO loginReqDTO) {
+    public ResponseResult<LoginResDTO> login(@RequestBody LoginReqDTO loginReqDTO) {
         ResponseResult<LoginResDTO> res = loginService.login(loginReqDTO);
         return res;
     }

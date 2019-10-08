@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @Data
 @ApiModel(description = "用户信息表(登录信息基础信息)")
-public class UaseInfo {
+public class UserInfo {
 
     @ApiModelProperty(value = "用户id")
     private String uid;

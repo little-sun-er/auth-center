@@ -2,7 +2,9 @@ package com.rainsunset.auth.service.impl;
 
 import com.rainsunset.auth.service.LoginService;
 import com.rainsunset.auth.service.request.*;
+import com.rainsunset.auth.service.response.LoginResDTO;
 import com.rainsunset.common.bean.ResponseResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,10 +13,15 @@ import org.springframework.stereotype.Service;
  * @company rainsunset
  * @date: 2019-10-08
  */
+@Slf4j
 @Service
 public class LoginServiceImpl implements LoginService {
     @Override
-    public ResponseResult<LoginResDTO> login(LoginResDTO loginReqDTO) {
+    public ResponseResult<LoginResDTO> login(LoginReqDTO loginReqDTO) {
+        // 失效相同系统类型的Token
+        // 校验登录名 登录Key
+        // 异步存储登录记录，结果
+        // 返回登录结果
         return null;
     }
 

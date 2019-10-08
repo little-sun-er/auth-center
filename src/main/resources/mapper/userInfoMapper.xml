@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.rainsunset.auth.dal.mapper.UaseInfoMapper">
+<mapper namespace="com.rainsunset.auth.dal.mapper.UserInfoMapper">
 
-    <select id="selectUaseInfoList" resultType="com.rainsunset.auth.dal.model.UaseInfo">
+    <select id="selectUserInfoList" resultType="com.rainsunset.auth.dal.model.UserInfo">
         select `uid` `uid`,
         `pwd` `pwd`, `security_gestures` `securityGestures`, `expiry_time` `expiryTime`, `area_code` `areaCode`, 
         `phone` `phone`, `email` `email`, `card_id` `cardId`, `wchat_id` `wchatId`, 
@@ -12,7 +12,7 @@
         `nick_name` `nickName`, `avatar` `avatar`, `real_name` `realName`, `sex` `sex`, 
         `birthday` `birthday`, `created_at` `createdAt`, `created_by` `createdBy`, `updated_at` `updatedAt`, 
         `updated_by` `updatedBy`, `valid_status` `validStatus`
-        from t_uase_info
+        from t_user_info
         WHERE `status` = 'VALID'
         <if test="pwd != null and pwd != ''">
             and `pwd` = #{pwd}
@@ -107,8 +107,8 @@
         ORDER BY uid ASC
     </select>
 
-    <select id="getUaseInfoDetail" parameterType="java.lang.String"
-            resultType="com.rainsunset.auth.dal.model.UaseInfo">
+    <select id="getUserInfoDetail" parameterType="java.lang.String"
+            resultType="com.rainsunset.auth.dal.model.UserInfo">
         select
         `uid` `uid`,
         `pwd` `pwd`, `security_gestures` `securityGestures`, `expiry_time` `expiryTime`, `area_code` `areaCode`, 
@@ -119,13 +119,13 @@
         `nick_name` `nickName`, `avatar` `avatar`, `real_name` `realName`, `sex` `sex`, 
         `birthday` `birthday`, `created_at` `createdAt`, `created_by` `createdBy`, `updated_at` `updatedAt`, 
         `updated_by` `updatedBy`, `valid_status` `validStatus`
-        from t_uase_info
+        from t_user_info
         WHERE uid = #{uid}
     </select>
 
-    <insert id="fullInsertUaseInfo" parameterType="com.rainsunset.auth.dal.model.UaseInfo"
+    <insert id="fullInsertUserInfo" parameterType="com.rainsunset.auth.dal.model.UserInfo"
         useGeneratedKeys="true" keyProperty="uid">
-        INSERT INTO t_uase_info ( uid, 
+        INSERT INTO t_user_info ( uid,
             `pwd`, `security_gestures`, `expiry_time`, `area_code`, 
             `phone`, `email`, `card_id`, `wchat_id`, 
             `weibo_id`, `qq_id`, `github_id`, `google_id`, 
@@ -146,8 +146,8 @@
         )
     </insert>
 
-    <update id="updateUaseInfo" parameterType="com.rainsunset.auth.dal.model.UaseInfo">
-        update t_uase_info
+    <update id="updateUserInfo" parameterType="com.rainsunset.auth.dal.model.UserInfo">
+        update t_user_info
         <trim prefix="set" suffixOverrides=",">
                 <if test="pwd != null">
                     `pwd` =#{pwd},
@@ -243,8 +243,8 @@
         where uid = #{uid}
     </update>
 
-    <update id="deleteUaseInfos">
-        update t_uase_info
+    <update id="deleteUserInfos">
+        update t_user_info
         set `status` = 'UNVALID', updated_by = #{updatedBy}
         where uid IN
         <foreach collection="uids" item="uid" open="(" close=")" separator=",">
