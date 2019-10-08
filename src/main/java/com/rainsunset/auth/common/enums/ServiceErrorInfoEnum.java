@@ -8,7 +8,7 @@ import org.springframework.util.StringUtils;
 /**
  * @description: auth-center服务相关业务异常枚举
  * @author: 李刚伟
- * @company CMBI
+ * @company rainsunset
  * @date: 2019-09-27
  */
 @Getter

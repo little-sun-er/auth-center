@@ -6,7 +6,7 @@ import com.rainsunset.common.bean.ResponseResult;
 /**
  * @description: 用户登录相关服务接口
  * @author: 李刚伟
- * @company CMBI
+ * @company rainsunset
  * @date: 2019-09-26
  */
 public interface LoginService {
@@ -20,7 +20,7 @@ public interface LoginService {
      * @param loginReqDTO
      * @return
      */
-    public ResponseResult<LoginReqDTO> login(LoginReqDTO loginReqDTO);
+    public ResponseResult<LoginResDTO> login(LoginResDTO loginReqDTO);
 
     /**
      * 用户特征识别
@@ -38,7 +38,7 @@ public interface LoginService {
      * @param veriTokenReqDTO
      * @return
      */
-    public ResponseResult<LoginReqDTO> veriToken(VeriTokenReqDTO veriTokenReqDTO);
+    public ResponseResult<LoginResDTO> veriToken(VeriTokenReqDTO veriTokenReqDTO);
 
     /**
      * 发送手机验证码

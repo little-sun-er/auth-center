@@ -7,7 +7,7 @@ import org.springframework.util.StringUtils;
 /**
  * @description: 账户安全状态枚举
  * @author: 李刚伟
- * @company CMBI
+ * @company rainsunset
  * @date: 2019-09-27
  */
 @Getter

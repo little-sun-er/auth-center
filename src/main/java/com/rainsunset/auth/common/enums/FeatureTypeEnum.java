@@ -7,7 +7,7 @@ import org.springframework.util.StringUtils;
 /**
  * @description: 用户特征类型枚举
  * @author: 李刚伟
- * @company CMBI
+ * @company rainsunset
  * @date: 2019-10-08
  */
 @Getter
