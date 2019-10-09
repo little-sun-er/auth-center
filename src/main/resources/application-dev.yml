@@ -16,3 +16,11 @@ swagger:
     description: API信息有疑问请联系相关开发人员
     contact: ligw
     version: @project.version@
+
+# 定时任务多线程执行配置
+# 核心线程数
+async-executor-thread:
+    core-pool-size: 3
+    max-pool-size: 7
+    queue-capacity: 2
+    name-prefix: async_service_

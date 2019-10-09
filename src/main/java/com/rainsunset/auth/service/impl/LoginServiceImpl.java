@@ -20,7 +20,8 @@ public class LoginServiceImpl implements LoginService {
     public ResponseResult<LoginResDTO> login(LoginReqDTO loginReqDTO) {
         // 失效相同系统类型的Token
         // 校验登录名 登录Key
-        // 异步存储登录记录，结果
+        // 异步-存储登录记录及登录结果
+        // 异步-检查用户当前户口安全状态
         // 返回登录结果
         return null;
     }

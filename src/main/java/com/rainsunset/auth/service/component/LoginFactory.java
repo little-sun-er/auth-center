@@ -2,6 +2,8 @@ package com.rainsunset.auth.service.component;
 
 import com.rainsunset.auth.common.enums.LoginTypeEnum;
 import com.rainsunset.auth.dal.model.UserInfo;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 /**
  * @version : 1.0
@@ -10,6 +12,8 @@ import com.rainsunset.auth.dal.model.UserInfo;
  * @company rainsunset
  * @date: 2019 -10-08
  */
+@Slf4j
+@Component
 public class LoginFactory {
 
     /**

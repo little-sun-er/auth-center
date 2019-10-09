@@ -1,4 +1,4 @@
-package com.rainsunset.auth.service.aop;
+package com.rainsunset.auth.config.aop;
 
 import com.google.common.base.Throwables;
 import com.rainsunset.auth.common.constant.Constants;
