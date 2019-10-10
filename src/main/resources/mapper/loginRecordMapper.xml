@@ -2,13 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rainsunset.auth.dal.mapper.LoginRecordMapper">
 
-    <select id="selectLoginRecordList" resultType="com.rainsunset.auth.dal.model.LoginRecord">
-        select `id` `id`,
-        `login_name` `loginName`, `login_key` `loginKey`, `login_type` `loginType`, `system_type` `systemType`, 
-        `system_version` `systemVersion`, `account_status` `accountStatus`, `safe_status` `safeStatus`, `ip` `ip`, 
-        `imsi` `imsi`, `imei` `imei`, `loc_info` `locInfo`, `device_id` `deviceId`, 
-        `created_at` `createdAt`, `created_by` `createdBy`, `updated_at` `updatedAt`, `updated_by` `updatedBy`, 
+    <sql id="loginRecord">
+        `id` `id`, `uid` `uid`,
+        `login_name` `loginName`, `login_key` `loginKey`, `login_type` `loginType`, `system_type` `systemType`,
+        `system_version` `systemVersion`, `account_status` `accountStatus`, `safe_status` `safeStatus`, `ip` `ip`,
+        `imsi` `imsi`, `imei` `imei`, `loc_info` `locInfo`, `device_id` `deviceId`,
+        `created_at` `createdAt`, `created_by` `createdBy`, `updated_at` `updatedAt`, `updated_by` `updatedBy`,
         `valid_status` `validStatus`
+    </sql>
+
+    <select id="selectLoginRecordList" resultType="com.rainsunset.auth.dal.model.LoginRecord">
+        select
+        <include refid="loginRecord"/>
         from t_login_record
         WHERE `status` = 'VALID'
         <if test="loginName != null and loginName != ''">
@@ -68,25 +73,20 @@
     <select id="getLoginRecordDetail" parameterType="java.lang.Integer"
             resultType="com.rainsunset.auth.dal.model.LoginRecord">
         select
-        `id` `id`,
-        `login_name` `loginName`, `login_key` `loginKey`, `login_type` `loginType`, `system_type` `systemType`, 
-        `system_version` `systemVersion`, `account_status` `accountStatus`, `safe_status` `safeStatus`, `ip` `ip`, 
-        `imsi` `imsi`, `imei` `imei`, `loc_info` `locInfo`, `device_id` `deviceId`, 
-        `created_at` `createdAt`, `created_by` `createdBy`, `updated_at` `updatedAt`, `updated_by` `updatedBy`, 
-        `valid_status` `validStatus`
+        <include refid="loginRecord"/>
         from t_login_record
         WHERE id = #{id}
     </select>
 
     <insert id="fullInsertLoginRecord" parameterType="com.rainsunset.auth.dal.model.LoginRecord"
         useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO t_login_record ( 
+        INSERT INTO t_login_record ( `uid`,
             `login_name`, `login_key`, `login_type`, `system_type`, 
             `system_version`, `account_status`, `safe_status`, `ip`, 
             `imsi`, `imei`, `loc_info`, `device_id`, 
             `created_at`, `created_by`, `updated_at`, `updated_by`, 
             `valid_status`
-        ) VALUES ( 
+        ) VALUES ( `uid` ,
             #{loginName}, #{loginKey}, #{loginType}, #{systemType}, 
             #{systemVersion}, #{accountStatus}, #{safeStatus}, #{ip}, 
             #{imsi}, #{imei}, #{locInfo}, #{deviceId}, 
@@ -98,6 +98,9 @@
     <update id="updateLoginRecord" parameterType="com.rainsunset.auth.dal.model.LoginRecord">
         update t_login_record
         <trim prefix="set" suffixOverrides=",">
+                <if test="uid != null">
+                    `uid` =#{uid},
+                </if>
                 <if test="loginName != null">
                     `login_name` =#{loginName},
                 </if>

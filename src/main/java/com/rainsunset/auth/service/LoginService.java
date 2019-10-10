@@ -26,7 +26,7 @@ public interface LoginService {
     /**
      * 用户特征识别
      *
-     * 特征识别登录(注册): FINGERPRINT:指纹识别;FACE:面部识别;CARD:身份证识别;
+     * 特征识别登录(注册): FINGERPRINT:指纹识别;FACE:面部识别;CARD:身份证识别;安全手势
      * 设备授权登录: TRUSTED_DEVICE:信任设备;
      * @param veriFeatureReqDTO
      * @return

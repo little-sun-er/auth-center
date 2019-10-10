@@ -1,6 +1,9 @@
 package com.rainsunset.auth.service.request;
 
+import com.rainsunset.common.bean.BaseRequest;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.ToString;
 
 /**
  * @description: 登录请求体
@@ -8,7 +11,9 @@ import io.swagger.annotations.ApiModelProperty;
  * @company rainsunset
  * @date: 2019-09-27
  */
-public class LoginReqDTO {
+@Data
+@ToString(callSuper = true)
+public class LoginReqDTO extends BaseRequest {
 
     @ApiModelProperty(value = "登录名")
     private String loginName;

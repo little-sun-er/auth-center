@@ -1,10 +1,14 @@
 package com.rainsunset.auth.service.impl;
 
+import com.rainsunset.auth.dal.model.UserInfo;
 import com.rainsunset.auth.service.LoginService;
+import com.rainsunset.auth.service.bo.LoginVeriBO;
+import com.rainsunset.auth.service.component.LoginFactory;
 import com.rainsunset.auth.service.request.*;
 import com.rainsunset.auth.service.response.LoginResDTO;
 import com.rainsunset.common.bean.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,11 +20,20 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class LoginServiceImpl implements LoginService {
+
+    @Autowired
+    private LoginFactory loginFactory;
+
     @Override
     public ResponseResult<LoginResDTO> login(LoginReqDTO loginReqDTO) {
-        // 失效相同系统类型的Token
+        String loginType = loginReqDTO.getLoginType();
+        String loginName = loginReqDTO.getLoginName();
+        String loginKey = loginReqDTO.getLoginKey();
         // 校验登录名 登录Key
+        LoginVeriBO loginVeriBO = loginFactory.veriLoginName(loginType, loginName, loginKey);
         // 异步-存储登录记录及登录结果
+        // 异步-登陆成功则失效相同系统类型的Token
+        String systemType = loginReqDTO.getSystemType();
         // 异步-检查用户当前户口安全状态
         // 返回登录结果
         return null;

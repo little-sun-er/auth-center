@@ -20,6 +20,9 @@ public class LoginRecord {
     @ApiModelProperty(value = "登录记录表主键")
     private Integer id;
 
+    @ApiModelProperty(value = "用户id")
+    private String uid;
+
     @ApiModelProperty(value = "登录名")
     private String loginName;
 

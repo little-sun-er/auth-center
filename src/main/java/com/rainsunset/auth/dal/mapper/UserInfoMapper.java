@@ -79,6 +79,57 @@ public interface UserInfoMapper {
     public UserInfo getUserInfoDetail(@Param("uid") String uid);
 
     /**
+     * 依据用户绑定手机号查找 用户信息表(登录信息基础信息) 详情
+     *
+     * @param phone
+     * @return
+     */
+    public UserInfo getUserInfoByPhone(@Param("phone") String phone);
+
+    /**
+     * 依据用户绑定邮箱查找 用户信息表(登录信息基础信息) 详情
+     *
+     * @param email
+     * @return
+     */
+    public UserInfo getUserInfoByEmail(@Param("email") String email);
+
+    /**
+     * 依据用户绑定身份证查找 用户信息表(登录信息基础信息) 详情
+     * @param cardId
+     * @return
+     */
+    public UserInfo getUserInfoByCardId(@Param("cardId") String cardId);
+
+    /**
+     * 依据用户绑定微信查找 用户信息表(登录信息基础信息) 详情
+     * @param wchatId
+     * @return
+     */
+    public UserInfo getUserInfoByWchatId(@Param("wchatId") String wchatId);
+
+    /**
+     * 依据用户绑定微博查找 用户信息表(登录信息基础信息) 详情
+     * @param weiboId
+     * @return
+     */
+    public UserInfo getUserInfoByWeiboId(@Param("weiboId") String weiboId);
+
+    /**
+     * 依据用户绑定QQ查找 用户信息表(登录信息基础信息) 详情
+     * @param qqId
+     * @return
+     */
+    public UserInfo getUserInfoByQqId(@Param("qqId") String qqId);
+
+    /**
+     * 依据用户绑定Github查找 用户信息表(登录信息基础信息) 详情
+     * @param githubId
+     * @return
+     */
+    public UserInfo getUserInfoByGithubId(@Param("githubId") String githubId);
+
+    /**
      * 全量插入 用户信息表(登录信息基础信息)
      *
      * @param userInfo

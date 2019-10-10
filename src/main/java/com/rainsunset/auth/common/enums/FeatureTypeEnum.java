@@ -13,7 +13,8 @@ import org.springframework.util.StringUtils;
 @Getter
 @AllArgsConstructor
 public enum FeatureTypeEnum {
-    // 特征识别登录(注册): FINGERPRINT:指纹识别;FACE:面部识别;CARD:身份证识别;
+    // 特征识别: FINGERPRINT:指纹识别;FACE:面部识别;CARD:身份证识别;
+    // 安全手势: securityGestures
     // 设备授权登录: TRUSTED_DEVICE:信任设备;
     FINGERPRINT("FINGERPRINT","指纹识别"),
     FACE("FACE","面部识别"),

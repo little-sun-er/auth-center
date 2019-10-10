@@ -39,7 +39,7 @@ public interface LoginRecordMapper {
      * @param validStatus
      * @return
      */
-    public List<LoginRecord> selectLoginRecordList(
+    public List<LoginRecord> selectLoginRecordList(@Param("uid") String uid,
 		    @Param("loginName") String loginName, @Param("loginKey") String loginKey,
 		    @Param("loginType") String loginType, @Param("systemType") String systemType,
 		    @Param("systemVersion") String systemVersion, @Param("accountStatus") String accountStatus,

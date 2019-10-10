@@ -1,8 +1,12 @@
 package com.rainsunset.auth.service.component;
 
+import com.rainsunset.auth.common.constant.Constants;
 import com.rainsunset.auth.common.enums.LoginTypeEnum;
+import com.rainsunset.auth.dal.mapper.UserInfoMapper;
 import com.rainsunset.auth.dal.model.UserInfo;
+import com.rainsunset.auth.service.bo.LoginVeriBO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,8 +20,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginFactory {
 
+    @Autowired
+    private UserInfoMapper userInfoMapper;
+
     /**
-     * Veri login name user info.
+     * 登录校验
      *
      * @param loginType the login type
      * @param loginName the login name
@@ -25,165 +32,175 @@ public class LoginFactory {
      * @return the user info
      * @author : ligangwei / 2019-10-8 8:56:25
      */
-    public UserInfo veriLoginName(String loginType, String loginName, String loginKey) {
-        UserInfo userInfo = new UserInfo();
+    public LoginVeriBO veriLoginName(String loginType, String loginName, String loginKey) {
         if (LoginTypeEnum.PHONE_PWD.getCode().equals(loginType)) {
-            userInfo = veriPhonePwdLogin(loginName,loginKey);
-            return userInfo;
+            return veriPhonePwdLogin(loginName,loginKey);
         }
         if (LoginTypeEnum.EMAIL_PWD.getCode().equals(loginType)) {
-            userInfo = veriEmailPwdLogin(loginName,loginKey);
-            return userInfo;
+            return veriEmailPwdLogin(loginName,loginKey);
         }
         if (LoginTypeEnum.CARD_PWD.getCode().equals(loginType)) {
-            userInfo = veriCardPwdLogin(loginName,loginKey);
-            return userInfo;
+            return veriCardPwdLogin(loginName,loginKey);
         }
         if (LoginTypeEnum.PHONE_CODE.getCode().equals(loginType)) {
-            userInfo = veriPhoneCodeLogin(loginName,loginKey);
-            return userInfo;
+            return veriPhoneCodeLogin(loginName,loginKey);
         }
         if (LoginTypeEnum.EMAIL_CODE.getCode().equals(loginType)) {
-            userInfo = veriEmailCodeLogin(loginName,loginKey);
-            return userInfo;
+            return veriEmailCodeLogin(loginName,loginKey);
         }
         if (LoginTypeEnum.WCHAT.getCode().equals(loginType)) {
-            userInfo = veriWchatLogin(loginName,loginKey);
-            return userInfo;
+            return veriWchatLogin(loginName,loginKey);
         }
         if (LoginTypeEnum.WEIBO.getCode().equals(loginType)) {
-            userInfo = veriWeiboLogin(loginName,loginKey);
-            return userInfo;
+            return veriWeiboLogin(loginName,loginKey);
         }
         if (LoginTypeEnum.QQ.getCode().equals(loginType)) {
-            userInfo = veriQqLogin(loginName,loginKey);
-            return userInfo;
+            return veriQqLogin(loginName,loginKey);
         }
         if (LoginTypeEnum.GITHUB.getCode().equals(loginType)) {
-            userInfo = veriGithubLogin(loginName,loginKey);
-            return userInfo;
+            return veriGithubLogin(loginName,loginKey);
         }
         if (LoginTypeEnum.GOOGLE.getCode().equals(loginType)) {
-            userInfo = veriGoogleLogin(loginName,loginKey);
-            return userInfo;
+            return veriGoogleLogin(loginName,loginKey);
         }
         if (LoginTypeEnum.FACEBOOK.getCode().equals(loginType)) {
-            userInfo = veriFacebookLogin(loginName,loginKey);
-            return userInfo;
+            return veriFacebookLogin(loginName,loginKey);
         }
         if (LoginTypeEnum.TWITTER.getCode().equals(loginType)) {
-            userInfo = veriTwitterLogin(loginName,loginKey);
-            return userInfo;
+            return veriTwitterLogin(loginName,loginKey);
         }
-        return null;
+        return new LoginVeriBO(null, false);
     }
 
     /**
-     * Veri phone pwd login user info.
+     * 手机号密码登录校验
      *
      * @param loginName the login name
      * @param loginKey  the login key
      * @return the user info
      * @author : ligangwei / 2019-10-8 8:56:25
      */
-    private UserInfo veriPhonePwdLogin(String loginName, String loginKey) {
-        return null;
+    private LoginVeriBO veriPhonePwdLogin(String loginName, String loginKey) {
+        UserInfo userInfo = userInfoMapper.getUserInfoByPhone(loginName);
+        return veriPwd(userInfo, loginKey);
     }
 
     /**
-     * Veri email pwd login user info.
+     * 邮箱密码登录校验
      *
      * @param loginName the login name
      * @param loginKey  the login key
      * @return the user info
      * @author : ligangwei / 2019-10-8 8:56:25
      */
-    private UserInfo veriEmailPwdLogin(String loginName, String loginKey) {
-        return null;
+    private LoginVeriBO veriEmailPwdLogin(String loginName, String loginKey) {
+        UserInfo userInfo = userInfoMapper.getUserInfoByEmail(loginName);
+        return veriPwd(userInfo, loginKey);
     }
 
     /**
-     * Veri card pwd login user info.
+     * 身份证号密码登录校验
      *
      * @param loginName the login name
      * @param loginKey  the login key
      * @return the user info
      * @author : ligangwei / 2019-10-8 8:56:25
      */
-    private UserInfo veriCardPwdLogin(String loginName, String loginKey) {
-        return null;
+    private LoginVeriBO veriCardPwdLogin(String loginName, String loginKey) {
+        UserInfo userInfo = userInfoMapper.getUserInfoByCardId(loginName);
+        return veriPwd(userInfo, loginKey);
     }
 
     /**
-     * Veri phone code login user info.
+     * 校验登陆密码
+     *
+     * @param userInfo the user info
+     * @param loginKey the login key
+     * @return the login veri bo
+     * @author : ligangwei / 2019-10-10 9:13:33
+     */
+    private LoginVeriBO veriPwd(UserInfo userInfo,String loginKey) {
+        if (null == userInfo) {
+            return new LoginVeriBO(null, false);
+        }
+        String pwdVeri = Constants.generatePwd(loginKey, userInfo.getUid());
+        if (pwdVeri.equals(userInfo.getPwd())) {
+            return new LoginVeriBO(userInfo, true);
+        } else {
+            return new LoginVeriBO(userInfo, false);
+        }
+    }
+
+    /**
+     * 手机号验证码登录校验
      *
      * @param loginName the login name
      * @param loginKey  the login key
      * @return the user info
      * @author : ligangwei / 2019-10-8 8:56:25
      */
-    private UserInfo veriPhoneCodeLogin(String loginName, String loginKey) {
-        return null;
+    private LoginVeriBO veriPhoneCodeLogin(String loginName, String loginKey) {
+        return new LoginVeriBO(null, false);
     }
 
     /**
-     * Veri email code login user info.
+     * 邮箱验证码登录校验
      *
      * @param loginName the login name
      * @param loginKey  the login key
      * @return the user info
      * @author : ligangwei / 2019-10-8 8:56:25
      */
-    private UserInfo veriEmailCodeLogin(String loginName, String loginKey) {
-        return null;
+    private LoginVeriBO veriEmailCodeLogin(String loginName, String loginKey) {
+        return new LoginVeriBO(null, false);
     }
 
     /**
-     * Veri wchat login user info.
+     * 微信授权登录
      *
      * @param loginName the login name
      * @param loginKey  the login key
      * @return the user info
      * @author : ligangwei / 2019-10-8 8:56:25
      */
-    private UserInfo veriWchatLogin(String loginName, String loginKey) {
-        return null;
+    private LoginVeriBO veriWchatLogin(String loginName, String loginKey) {
+        return new LoginVeriBO(null, false);
     }
 
     /**
-     * Veri weibo login user info.
+     * 微博授权登录
      *
      * @param loginName the login name
      * @param loginKey  the login key
      * @return the user info
      * @author : ligangwei / 2019-10-8 8:56:25
      */
-    private UserInfo veriWeiboLogin(String loginName, String loginKey) {
-        return null;
+    private LoginVeriBO veriWeiboLogin(String loginName, String loginKey) {
+        return new LoginVeriBO(null, false);
     }
 
     /**
-     * Veri qq login user info.
+     * QQ授权登录
      *
      * @param loginName the login name
      * @param loginKey  the login key
      * @return the user info
      * @author : ligangwei / 2019-10-8 8:56:25
      */
-    private UserInfo veriQqLogin(String loginName, String loginKey) {
-        return null;
+    private LoginVeriBO veriQqLogin(String loginName, String loginKey) {
+        return new LoginVeriBO(null, false);
     }
 
     /**
-     * Veri github login user info.
+     * Github授权登录
      *
      * @param loginName the login name
      * @param loginKey  the login key
      * @return the user info
      * @author : ligangwei / 2019-10-8 8:56:25
      */
-    private UserInfo veriGithubLogin(String loginName, String loginKey) {
-        return null;
+    private LoginVeriBO veriGithubLogin(String loginName, String loginKey) {
+        return new LoginVeriBO(null, false);
     }
 
     /**
@@ -194,8 +211,8 @@ public class LoginFactory {
      * @return the user info
      * @author : ligangwei / 2019-10-8 8:56:25
      */
-    private UserInfo veriGoogleLogin(String loginName, String loginKey) {
-        return null;
+    private LoginVeriBO veriGoogleLogin(String loginName, String loginKey) {
+        return new LoginVeriBO(null, false);
     }
 
     /**
@@ -206,8 +223,8 @@ public class LoginFactory {
      * @return the user info
      * @author : ligangwei / 2019-10-8 8:56:25
      */
-    private UserInfo veriFacebookLogin(String loginName, String loginKey) {
-        return null;
+    private LoginVeriBO veriFacebookLogin(String loginName, String loginKey) {
+        return new LoginVeriBO(null, false);
     }
 
     /**
@@ -218,8 +235,8 @@ public class LoginFactory {
      * @return the user info
      * @author : ligangwei / 2019-10-8 8:56:25
      */
-    private UserInfo veriTwitterLogin(String loginName, String loginKey) {
-        return null;
+    private LoginVeriBO veriTwitterLogin(String loginName, String loginKey) {
+        return new LoginVeriBO(null, false);
     }
 
 }
