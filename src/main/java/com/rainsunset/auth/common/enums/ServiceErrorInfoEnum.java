@@ -33,6 +33,8 @@ public enum ServiceErrorInfoEnum implements ErrorInfoInterface {
     AUTH_412002("AUTH_412002", "账号锁死"),
     AUTH_412003("AUTH_412003", "账号已过期"),
     AUTH_412004("AUTH_412004", "账号已注销"),
+    AUTH_412005("AUTH_412005", "非法Token"),
+    AUTH_412006("AUTH_412006", "Token失效"),
     // endregion
 
     // 参数异常

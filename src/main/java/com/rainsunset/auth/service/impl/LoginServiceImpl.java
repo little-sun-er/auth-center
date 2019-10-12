@@ -1,8 +1,10 @@
 package com.rainsunset.auth.service.impl;
 
+import com.google.gson.reflect.TypeToken;
 import com.rainsunset.auth.common.constant.Constants;
 import com.rainsunset.auth.common.enums.AccountStatusEnum;
 import com.rainsunset.auth.common.enums.ServiceErrorInfoEnum;
+import com.rainsunset.auth.config.RedisUtil;
 import com.rainsunset.auth.dal.model.UserInfo;
 import com.rainsunset.auth.service.LoginService;
 import com.rainsunset.auth.service.bo.DecodeTokenBO;
@@ -15,16 +17,15 @@ import com.rainsunset.common.bean.GlobalErrorInfoException;
 import com.rainsunset.common.bean.ResponseResult;
 import com.rainsunset.common.bean.RestResultGenerator;
 import com.rainsunset.common.util.Base64Util;
+import com.rainsunset.common.util.GsonUtil;
 import com.rainsunset.common.util.StringUtil;
-import com.rainsunset.common.util.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Base64Utils;
+import org.springframework.util.StringUtils;
 
-import java.util.Base64;
 import java.util.Date;
-import java.util.Random;
 
 /**
  * @description: 用户登录相关服务接口 实现
@@ -38,6 +39,15 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private LoginFactory loginFactory;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Value("${business.token.redis-expire-second}")
+    private long tokenRedisExpireSecond;
+
+    @Value("${business.token.max-expire-second}")
+    private long tokenMaxExpireSecond;
 
     @Override
     public ResponseResult<LoginResDTO> login(LoginReqDTO loginReqDTO) {
@@ -75,14 +85,16 @@ public class LoginServiceImpl implements LoginService {
         if (AccountStatusEnum.WIRTE_OFF.getCode().equals(accountStatus)) {
             throw new GlobalErrorInfoException(ServiceErrorInfoEnum.AUTH_412004);
         }
-        // TODO 异步-登陆成功则失效相同系统类型的Token
+        // 登陆成功则失效相同系统类型的Token
         String systemType = loginReqDTO.getSystemType();
         String userSystenTypeRedisKeyFooter = generateUserSystenTypeRedisKeyFooter(uid, systemType);
-
+        redisUtil.removePattern(StringUtil.conlitionStr(userSystenTypeRedisKeyFooter, "*"));
         EncodeTokenBO encodeTokenBO = encodeToken(uid, systemType);
+        String redisKey = encodeTokenBO.getRedisKey();
         LoginResDTO loginResDTO = userInfo2loginResDTO(userInfo, encodeTokenBO.getToken());
-        // TODO 新Token放入Redis
-
+        // 新Token放入Redis
+        redisUtil.set(redisKey, GsonUtil.toJsonFilterNullField(loginResDTO));
+        redisUtil.expire(redisKey,tokenRedisExpireSecond);
         return RestResultGenerator.genResult(loginResDTO);
     }
 
@@ -93,12 +105,31 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public ResponseResult<LoginResDTO> veriToken(VeriTokenReqDTO veriTokenReqDTO) {
-        return null;
+        String token = veriTokenReqDTO.getToken();
+        DecodeTokenBO decodeTokenBO = decodeToken(token);
+        if (null == decodeTokenBO) {
+            throw new GlobalErrorInfoException(ServiceErrorInfoEnum.AUTH_412005);
+        }
+        String redisKey = decodeTokenBO.getRedisKey();
+        String userInfoJsonStr = redisUtil.get(redisKey);
+        if (StringUtils.isEmpty(userInfoJsonStr)) {
+            throw new GlobalErrorInfoException(ServiceErrorInfoEnum.AUTH_412006);
+        }
+        long time = decodeTokenBO.getLoginTime().getTime();
+        // token未超过最大有效时长则更新token失效时间
+        if (tokenMaxExpireSecond > (System.currentTimeMillis() - time)) {
+            redisUtil.expire(redisKey, tokenRedisExpireSecond);
+        }
+        LoginResDTO loginResDTO = GsonUtil.fromJson(userInfoJsonStr, new TypeToken<LoginResDTO>() {
+        }.getType());
+        return RestResultGenerator.genResult(loginResDTO);
     }
 
     @Override
     public ResponseResult<Boolean> sendPhoneCode(SendPhoneCodeReqDTO sendPhoneCodeReqDTO) {
+
         return null;
+
     }
 
     @Override
@@ -124,7 +155,7 @@ public class LoginServiceImpl implements LoginService {
      * @return the login res dto
      * @author : ligangwei / 2019-10-10 9:52:14
      */
-    private LoginResDTO userInfo2loginResDTO(UserInfo userInfo,String token) {
+    private LoginResDTO userInfo2loginResDTO(UserInfo userInfo, String token) {
         return new LoginResDTO(token, userInfo.getUid(), userInfo.getExpiryTime(),
                 userInfo.getAreaCode(), userInfo.getPhone(), userInfo.getEmail(),
                 userInfo.getCardId(), userInfo.getWchatId(), userInfo.getWeiboId(),
@@ -145,7 +176,7 @@ public class LoginServiceImpl implements LoginService {
     private EncodeTokenBO encodeToken(String uid, String systemType) {
         String currentMillen = String.valueOf(System.currentTimeMillis());
         String serSystenTypeRedisKeyFooter = generateUserSystenTypeRedisKeyFooter(uid, systemType);
-        String redisKey = StringUtil.conlitionStr(serSystenTypeRedisKeyFooter, "_",currentMillen);
+        String redisKey = StringUtil.conlitionStr(serSystenTypeRedisKeyFooter, "_", currentMillen);
         String token = Base64Util.encode(redisKey);
         String randomStr = String.valueOf((char) (Math.random() * 26 + 'a'));
         token = StringUtil.conlitionStr(randomStr, token);

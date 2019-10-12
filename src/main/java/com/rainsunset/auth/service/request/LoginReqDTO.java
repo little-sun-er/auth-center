@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @description: 登录请求体
  * @author: 李刚伟
@@ -16,15 +18,19 @@ import lombok.ToString;
 public class LoginReqDTO extends BaseRequest {
 
     @ApiModelProperty(value = "登录名")
+    @NotBlank(message = "登录名不能为空")
     private String loginName;
 
     @ApiModelProperty(value = "登录口令")
+    @NotBlank(message = "登录口令不能为空")
     private String loginKey;
 
     @ApiModelProperty(value = "登录类型")
+    @NotBlank(message = "登录类型不能为空")
     private String loginType;
 
     @ApiModelProperty(value = "系统类型")
+    @NotBlank(message = "系统类型不能为空")
     private String systemType;
 
     @ApiModelProperty(value = "系统版本")
