@@ -1,7 +1,11 @@
 package com.rainsunset.auth.service.response;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +14,10 @@ import java.util.Date;
  * @company rainsunset
  * @date: 2019-09-27
  */
-public class LoginResDTO {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class LoginResDTO implements Serializable {
     @ApiModelProperty(value = "用户Token")
     private String Token;
 
@@ -55,9 +62,6 @@ public class LoginResDTO {
 
     @ApiModelProperty(value = "账户状态")
     private String accountStatus;
-
-    @ApiModelProperty(value = "账户解锁时间")
-    private Date unlockTime;
 
     @ApiModelProperty(value = "账户安全状态")
     private String safeStatus;

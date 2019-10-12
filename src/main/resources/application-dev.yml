@@ -1,12 +1,27 @@
 server:
     port: 8080
     name: auth-center-dev
-
 spring:
     datasource:
-        url: jdbc:mysql://localhost:3306/demo?allowMultiQueries=true
+        url: jdbc:mysql://localhost:3306/rainsunset_auth?allowMultiQueries=true
         username: root
         password: root
+    redis:
+        enabled: true
+        database: 0
+        timeout: 10000
+        cluster:
+            nodes:
+            - 192.168.99.104:7000
+            - 192.168.99.104:7001
+            - 192.168.99.104:7002
+            max-redirects: 3
+        jedis:
+            pool:
+                min-idle: 8
+                max-idle: 500
+                max-active: 2000
+                max-wait: 10000
 info:
     service-info: auth-center-dev
     api-doc: /swagger-ui.html

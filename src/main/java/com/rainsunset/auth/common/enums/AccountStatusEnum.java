@@ -13,8 +13,14 @@ import org.springframework.util.StringUtils;
 @Getter
 @AllArgsConstructor
 public enum AccountStatusEnum {
-//    账户状态(LOGIN_FAIL:登陆失败;PWD_INIT:密码初始化;UAUAL:正常;PART_LOCK:暂时锁定;LOCK_OUT锁死;OVER_TIME:过期失效;WIRTE_OFF:注销;)
-
+    // 账户状态(LOGIN_FAIL:登陆失败;PWD_INIT:密码初始化;UAUAL:正常;PART_LOCK:暂时锁定;LOCK_OUT:锁死;OVER_TIME:过期失效;WIRTE_OFF:注销;)
+    LOGIN_FAIL("LOGIN_FAIL", "登陆失败"),
+    PWD_INIT("PWD_INIT", "密码初始化"),
+    UAUAL("UAUAL", "正常"),
+    PART_LOCK("PART_LOCK", "暂时锁定"),
+    LOCK_OUT("LOCK_OUT", "锁死"),
+    OVER_TIME("OVER_TIME", "过期失效"),
+    WIRTE_OFF("WIRTE_OFF", "注销"),
     ;
     private String code;
 

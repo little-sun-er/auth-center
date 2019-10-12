@@ -26,8 +26,17 @@ public enum ServiceErrorInfoEnum implements ErrorInfoInterface {
      * 500，内部错误
      */
 
+    // 412，前提条件失败
+    // region 412000-412099 登陆失败
+    AUTH_412000("AUTH_412000", "用户名或密码错误"),
+    AUTH_412001("AUTH_412001", "账号暂时锁定"),
+    AUTH_412002("AUTH_412002", "账号锁死"),
+    AUTH_412003("AUTH_412003", "账号已过期"),
+    AUTH_412004("AUTH_412004", "账号已注销"),
+    // endregion
+
     // 参数异常
-    AUTH_415000("AUTH_415000","请求参数非法"),
+    AUTH_415000("AUTH_415000", "请求参数非法"),
 
     // 500 内部错误
     AUTH_500001("AUTH_500001", "数据库异常"),
