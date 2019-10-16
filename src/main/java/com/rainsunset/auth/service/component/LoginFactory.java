@@ -197,7 +197,7 @@ public class LoginFactory {
             String access_token = userOauth2AccessToken.getAccess_token();
             OpenGetUserinfoResBean weixinUserinfo = OpenUtil.getUserinfo(access_token, openid);
             if (null == userInfo) {
-                log.error("微信授权登录异常-获取微信用户个人信息异常");
+                log.error(">>> 微信授权登录异常-获取微信用户个人信息异常");
             }
             Integer errcode1 = weixinUserinfo.getErrcode();
             if (!((Integer)0).equals(errcode1)) {
