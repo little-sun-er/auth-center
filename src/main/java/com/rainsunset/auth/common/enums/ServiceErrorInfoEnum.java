@@ -37,6 +37,10 @@ public enum ServiceErrorInfoEnum implements ErrorInfoInterface {
     AUTH_412006("AUTH_412006", "Token失效"),
     // endregion
 
+    // region 412100-412199 调用其他服务异常
+    AUTH_412100("AUTH_412100", "调用微信OpenApi失败"),
+    // endregion
+
     // 参数异常
     AUTH_415000("AUTH_415000", "请求参数非法"),
 

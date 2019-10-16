@@ -31,6 +31,12 @@ swagger:
     description: API信息有疑问请联系相关开发人员
     contact: ligw
     version: @project.version@
+# 异步任务多线程配置
+async-executor-thread:
+    core-pool-size: 3
+    max-pool-size: 7
+    queue-capacity: 2
+    name-prefix: async_service_
 # 业务配置
 business:
     token:
@@ -38,9 +44,12 @@ business:
         redis-expire-second: 604800
         # token最长有效时长(单位:秒)
         max-expire-second: 7776000
-# 异步任务多线程配置
-async-executor-thread:
-    core-pool-size: 3
-    max-pool-size: 7
-    queue-capacity: 2
-    name-prefix: async_service_
+# 第三方平台配置
+third-platform:
+    # 微信
+    weixin:
+        # 开放平台应用
+        open:
+            appid: wxe53df1855bab1cc8
+            secret: 70f10e2dfd552c39fd4be98c81fd0f0d
+

@@ -89,12 +89,18 @@ public class LoginServiceImpl implements LoginService {
         String systemType = loginReqDTO.getSystemType();
         String userSystenTypeRedisKeyFooter = generateUserSystenTypeRedisKeyFooter(uid, systemType);
         redisUtil.removePattern(StringUtil.conlitionStr(userSystenTypeRedisKeyFooter, "*"));
-        EncodeTokenBO encodeTokenBO = encodeToken(uid, systemType);
-        String redisKey = encodeTokenBO.getRedisKey();
-        LoginResDTO loginResDTO = userInfo2loginResDTO(userInfo, encodeTokenBO.getToken());
-        // 新Token放入Redis
-        redisUtil.set(redisKey, GsonUtil.toJsonFilterNullField(loginResDTO));
-        redisUtil.expire(redisKey,tokenRedisExpireSecond);
+        LoginResDTO loginResDTO;
+        if (AccountStatusEnum.PWD_INIT.getCode().equals(accountStatus)) {
+            // 密码为初始化状态的用户不生成token
+            loginResDTO = userInfo2loginResDTO(userInfo, "");
+        } else {
+            EncodeTokenBO encodeTokenBO = encodeToken(uid, systemType);
+            loginResDTO = userInfo2loginResDTO(userInfo, encodeTokenBO.getToken());
+            // 新Token放入Redis
+            String redisKey = encodeTokenBO.getRedisKey();
+            redisUtil.set(redisKey, GsonUtil.toJsonFilterNullField(loginResDTO));
+            redisUtil.expire(redisKey,tokenRedisExpireSecond);
+        }
         return RestResultGenerator.genResult(loginResDTO);
     }
 
@@ -127,9 +133,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public ResponseResult<Boolean> sendPhoneCode(SendPhoneCodeReqDTO sendPhoneCodeReqDTO) {
-
         return null;
-
     }
 
     @Override
